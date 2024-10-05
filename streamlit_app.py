@@ -1,6 +1,8 @@
 import streamlit as st
 import streamlit_option_menu as option_menu 
 import pandas as pd
+import geocoding
+import solar
 
 st.title('Efficient Energy Calculator')
 
@@ -46,5 +48,16 @@ with st.form("my_form"):
                     average = 15489
                 case None:
                     st.write("Please Select An Option Before Submitting and " + state)
+
+            
+
+            resume = geocoding.get_coordinates(street + ", " + city + ", " + state)
+
+            thing = solar.solar_estimation(resume)
+
+            st.write(resume)
+            st.write(thing)
+
+
 
 

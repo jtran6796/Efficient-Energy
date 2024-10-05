@@ -24,5 +24,3 @@ def get_coordinates(address):
 
     # Return lat and lon
     return lat_lon_array
-
-get_coordinates('7822 Elmstone Circle, Orlando, FL')
