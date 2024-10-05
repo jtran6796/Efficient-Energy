@@ -7,11 +7,14 @@ st.title('Efficient Energy Calculator')
 with st.form("my_form"):
     dryer_stat = st.selectbox("How many times do you use your dryer a week?", ("1", "2", "3", "4+"))
 
+    sq_ft_stat = st.selectbox()
+
     fan_stat = st.selectbox("How many hours do you use your fan?", ("1", "2", "3", "4+"))
 
     fridge_stat = st.selectbox("How many fridges are in your household?", ("1", "2", "3+"))
 
     state_stat = st.selectbox("What state do you live in?", ("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"))
+
 
     st.form_submit_button("Submit")
 
