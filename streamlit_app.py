@@ -1,19 +1,31 @@
 import streamlit as st
-import streamlit_option_menu as option_menu 
 import pandas as pd
+import requests
 
 st.title('Efficient Energy Calculator')
 
-with st.form("my_form"):
-    dryer_stat = st.selectbox("How many times do you use your dryer a week?", ("1", "2", "3", "4+"))
+st.form("my_form"):
+
+    tot_kWh = st.number_input("Insert your monthly kW/h")
 
     sq_ft_stat = st.selectbox("Total Square Footage", ("Less than 1,000", "1,000 - 1,499", "1,500 - 1,999", "2,000 - 2,499", "2,500 - 2,999", "3,000 or more"))
 
-    fan_stat = st.selectbox("How many hours do you use your fan?", ("1", "2", "3", "4+"))
+    address = st.text_input("Insert your address")
 
-    fridge_stat = st.selectbox("How many fridges are in your household?", ("1", "2", "3+"))
+if(st.form_submit_button("Submit, "))
 
-    st.form_submit_button("Submit")
+#geocoding API
+#https://developers.google.com/maps/documentation/geocoding/requests-geocoding
+url = 'https://solar.googleapis.com/v1/dataLayers:get?'
+r_geo = requests.get(url + address)
+
+
+
+#solar API datalayers endpoint
+#https://developers.google.com/maps/documentation/solar/data-layers
+url = 'https://solar.googleapis.com/v1/dataLayers:get?'
+
+r = requests.get(url + r_geo )
 
 
 
