@@ -8,4 +8,4 @@ def solar_estimation():
         "longitude": -81.239190
     })
 
-    response = requests.get(https://solar.googleapis.com/v1/dataLayers:get?)
+    response = requests.get("https://solar.googleapis.com/v1/dataLayers:get?" + )
