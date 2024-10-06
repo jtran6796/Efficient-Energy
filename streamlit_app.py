@@ -54,23 +54,25 @@ with st.form("my_form"):
                 case None:
                     st.write("Please Select An Option Before Submitting and " + state)
 
+try:
+    lat_long = geocoding.get_coordinates(street + ", " + city + ", " + state)
 
-lat_long = geocoding.get_coordinates(street + ", " + city + ", " + state)
+    solar.solar_api_request(lat_long)
 
-solar.solar_api_request(lat_long)
-
-# Display solar panel count
-with st.form('solar_form'):
-    num_solar_panels = st.slider('Choose the number of Solar Panels', 4, 30, 15)
-    thing = solar.solar_estimation(lat_long, num_solar_panels)
-    
-    st.form_submit_button("Solar estimates")
-    # panels count slider somewhere
-    st.write(lat_long)
-    st.write(thing)
-    st.write("Max Panels")
-    # st.write(solar.solar_max_panels())
-    st.write(solar.solar_finances())
+    # Display solar panel count
+    with st.form('solar_form'):
+        num_solar_panels = st.slider('Choose the number of Solar Panels', 4, 30, 15)
+        thing = solar.solar_estimation(lat_long, num_solar_panels)
+        
+        st.form_submit_button("Solar estimates")
+        # panels count slider somewhere
+        st.write(lat_long)
+        st.write(thing)
+        st.write("Max Panels")
+        # st.write(solar.solar_max_panels())
+        st.write(solar.solar_finances())
+except:
+    pass
 
             
 
