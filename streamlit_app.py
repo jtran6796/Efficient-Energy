@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit_option_menu as option_menu 
 import pandas as pd
 import geocoding
 import solar
@@ -7,7 +6,12 @@ import solar
 st.title('Efficient Energy Calculator')
 
 with st.form("my_form"):
+    
+    # Get the monthly bill cost from user
+    monthly_bill = st.number_input("Monthly Bill Amount ($)", min_value = 20, max_value = 500)
 
+    # Get the monthly power usage from user
+    monthly_usage = st.number_input("Monthly Power Usage (W)")
 
     sq_ft_stat = st.selectbox("Total Square Footage", ("Less than 1,000", "1,000 - 1,499", "1,500 - 1,999", "2,000 - 2,499", "2,500 - 2,999", "3,000 or more")
     ,index = None,placeholder = "Please select an option")
@@ -50,6 +54,8 @@ with st.form("my_form"):
                 case None:
                     st.write("Please Select An Option Before Submitting and " + state)
 
+            # Display solar panel count
+            num_solar_panels = st.slider('Choose the number of Solar Panels', 4, 30, 15)
             
 
             lat_long = geocoding.get_coordinates(street + ", " + city + ", " + state)
