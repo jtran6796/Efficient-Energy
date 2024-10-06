@@ -36,10 +36,10 @@ try:
         
         st.form_submit_button("Solar estimates")
         # panels count slider somewhere
-        st.write("The potential amount of energy gained yearly from Solar:", icon="☀️" yearly_energy, "kW")
+        st.write("The potential amount of energy gained yearly from Solar:", icon="☀️", yearly_energy, "kW")
         st.write()
         st.write("Your Yearly Bill without Solar: $", monthly_bill * 12)
-        st.write("Your Yearly Savings with Solar: $", icon="💸" solar.solar_savings(num_solar_panels, m, b))
+        st.write("Your Yearly Savings with Solar: $", icon="💸", solar.solar_savings(num_solar_panels, m, b))
         # st.write(solar.solar_max_panels())
         # st.write(solar.solar_finances())
 except:
