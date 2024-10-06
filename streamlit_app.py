@@ -1,6 +1,7 @@
 import streamlit as st
-import streamlit_option_menu as option_menu 
 import pandas as pd
+import geocoding
+import solar
 
 st.title('Efficient Energy Calculator')
 
@@ -15,13 +16,20 @@ with st.form("my_form"):
     monthly_usage = st.number_input("Monthly Power Usage (W)")
 
     sq_ft_stat = st.selectbox("Total Square Footage", ("Less than 1,000", "1,000 - 1,499", "1,500 - 1,999", "2,000 - 2,499", "2,500 - 2,999", "3,000 or more")
-    ,index = None,placeholder = "Please select an Option")
+    ,index = None,placeholder = "Please select an option")
 
     street = st.text_input("Street Address",max_chars = 50)
 
     city = st.text_input("City",max_chars=50)
 
+<<<<<<< HEAD
     state = st.text_input("State Initial",max_chars=2)    
+=======
+    state = st.text_input("State Initial",max_chars=2)
+
+    appliance = st.multiselect("Select appliances you regularly use", ("Heating and Cooling", "Water Heater",
+    "Lighting", "Refrigerator", "Washer and Dryer", "Electric Oven", "Dishwasher", "TV and cable box"))
+>>>>>>> f28f2e95dc85e0f7719c6e5f7b48c4e90b996435
 
     submitted = st.form_submit_button("Submit")
 
@@ -52,4 +60,28 @@ with st.form("my_form"):
                 case None:
                     st.write("Please Select An Option Before Submitting and " + state)
 
+<<<<<<< HEAD
             num_solar_panels = st.slider('Choose the number of Solar Panels', 4, 30, 15)
+=======
+            
+
+            lat_long = geocoding.get_coordinates(street + ", " + city + ", " + state)
+            
+            solar.solar_api_request(lat_long)
+
+            thing = solar.solar_estimation(lat_long, 13)
+
+            
+            # panels count slider somewhere
+
+            st.write(lat_long)
+            st.write(thing)
+            st.write("Max Panels")
+            # st.write(solar.solar_max_panels())
+
+            st.write(solar.solar_finances())
+
+
+
+
+>>>>>>> f28f2e95dc85e0f7719c6e5f7b48c4e90b996435
