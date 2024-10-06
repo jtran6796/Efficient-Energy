@@ -10,13 +10,16 @@ with st.form("my_form"):
 
 
     sq_ft_stat = st.selectbox("Total Square Footage", ("Less than 1,000", "1,000 - 1,499", "1,500 - 1,999", "2,000 - 2,499", "2,500 - 2,999", "3,000 or more")
-    ,index = None,placeholder = "Please select an Option")
+    ,index = None,placeholder = "Please select an option")
 
     street = st.text_input("Street Address",max_chars = 50)
 
     city = st.text_input("City",max_chars=50)
 
     state = st.text_input("State Initial",max_chars=2)
+
+    appliance = st.multiselect("Select appliances you regularly use", ("Heating and Cooling", "Water Heater",
+    "Lighting", "Refrigerator", "Washer and Dryer", "Electric Oven", "Dishwasher", "TV and cable box"))
 
     submitted = st.form_submit_button("Submit")
 
