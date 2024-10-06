@@ -10,7 +10,7 @@ def get_coordinates(address):
     load_dotenv(find_dotenv())
 
     # Retrieve Google API KEY from env file
-    api_key = os.getenv('GOOGLE_KEY')
+    api_key = secrets.GOOGLE_KEY
 
     # Create a client object and pass API Key to it
     gmaps = googlemaps.Client(key = api_key)
