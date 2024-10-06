@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit_option_menu as option_menu 
 import pandas as pd
 import geocoding
 import solar
