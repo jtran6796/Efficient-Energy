@@ -10,68 +10,40 @@ with st.form("my_form"):
     # Get the monthly bill cost from user
     monthly_bill = st.number_input("Monthly Bill Amount ($)", min_value = 20, max_value = 500)
 
-    # Get the monthly power usage from user
-    monthly_usage = st.number_input("Monthly Power Usage (W)")
-
-    sq_ft_stat = st.selectbox("Total Square Footage", ("Less than 1,000", "1,000 - 1,499", "1,500 - 1,999", "2,000 - 2,499", "2,500 - 2,999", "3,000 or more")
-    ,index = None,placeholder = "Please select an option")
-
     street = st.text_input("Street Address",max_chars = 50)
 
     city = st.text_input("City",max_chars=50)
 
     state = st.text_input("State Initial",max_chars=2)
 
-    appliance = st.multiselect("Select appliances you regularly use", ("Heating and Cooling", "Water Heater",
-    "Lighting", "Refrigerator", "Washer and Dryer", "Electric Oven", "Dishwasher", "TV and cable box"))
-
     submitted = st.form_submit_button("Submit")
 
     if submitted:
         #need to fix this where all boxes must be filled before anything works
-        if (state == "" or city == "" or street == "" or sq_ft_stat is None):
+        if (state == "" or city == "" or street == ""):
             st.write("Please fill in all the boxes")
-        else:
-            match sq_ft_stat:
-                case "Less than 1,000" : 
-                    st.write("The average electricity usage for your home is 6,802 kWh.")
-                    average = 6802
-                case "1,000 - 1,499":
-                    st.write("The average electricity usage for your home is 9,407 kWh.")
-                    average = 9407
-                case "1,500 - 1,999":
-                    st.write("The average electricity usage for your home is 11,009 kWh.")
-                    average = 11009
-                case "2,000 - 2,499":
-                    st.write("The average electricity usage for your home is 12,173 kWh.")
-                    average = 12173
-                case "2,500 - 2,999":
-                    st.write("The average electricity usage for your home is 13,031 kWh.")
-                    average = 13031
-                case "3,000 or more":
-                    st.write("The average electricity usage for your home is 15,489 kWh.")
-                    average = 15489
-                case None:
-                    st.write("Please Select An Option Before Submitting and " + state)
 
+try:
+    lat_long = geocoding.get_coordinates(street + ", " + city + ", " + state)
+    solar.solar_api_request(lat_long)
+    solar.lifetime_savings_best_fit()
+    m, b = solar.lifetime_savings_best_fit()
 
-lat_long = geocoding.get_coordinates(street + ", " + city + ", " + state)
-
-solar.solar_api_request(lat_long)
-
-# Display solar panel count
-with st.form('solar_form'):
-    num_solar_panels = st.slider('Choose the number of Solar Panels', 4, 30, 15)
-    thing = solar.solar_estimation(lat_long, num_solar_panels)
-    
-    st.form_submit_button("Solar estimates")
-    # panels count slider somewhere
-    st.write(lat_long)
-    st.write(thing)
-    st.write("Max Panels")
-    # st.write(solar.solar_max_panels())
-    st.write(solar.solar_finances())
-
+    # Display solar panel count
+    with st.form('solar_form'):
+        num_solar_panels = st.slider('Choose the number of Solar Panels', 4, 30, 15)
+        yearly_energy = solar.solar_estimation(lat_long, num_solar_panels)
+        
+        st.form_submit_button("Solar estimates")
+        # panels count slider somewhere
+        st.write(yearly_energy)
+        st.write()
+        st.write("Your Yearly Bill without Solar: $", monthly_bill * 12)
+        st.write("Your Yearly Savings with Solar: $", solar.solar_savings(num_solar_panels, m, b))
+        # st.write(solar.solar_max_panels())
+        # st.write(solar.solar_finances())
+except:
+    pass
             
 
 
