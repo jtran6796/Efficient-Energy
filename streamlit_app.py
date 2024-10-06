@@ -18,8 +18,6 @@ with st.form("my_form"):
 
     state = st.text_input("State Initial",max_chars=2)
 
-
-
     submitted = st.form_submit_button("Submit")
 
     if submitted:
@@ -51,11 +49,16 @@ with st.form("my_form"):
 
             
 
-            resume = geocoding.get_coordinates(street + ", " + city + ", " + state)
+            lat_long = geocoding.get_coordinates(street + ", " + city + ", " + state)
+            
+            solar.solar_api_request(lat_long)
 
-            thing = solar.solar_estimation(resume)
+            thing = solar.solar_estimation(lat_long, 13)
 
-            st.write(resume)
+            
+            # panels count slider somewhere
+
+            st.write(lat_long)
             st.write(thing)
 
 
