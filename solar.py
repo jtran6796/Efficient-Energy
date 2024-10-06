@@ -53,4 +53,5 @@ def solar_max_panels():
     return response.json()['solarPotential'].get('maxArrayPanelsCount')
 
 
-# def solar_finances():
+def solar_finances():
+    return response.json()['solarPotential']['financialAnalyses']
