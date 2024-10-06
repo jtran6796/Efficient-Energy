@@ -60,6 +60,8 @@ with st.form("my_form"):
 
             st.write(lat_long)
             st.write(thing)
+            st.write("Max Panels")
+            st.write(solar.solar_max_panels())
 
 
 

@@ -49,7 +49,8 @@ def solar_estimation(lat_long, num_panels):
 
 
 
-# def solar_min_max_panels():
+def solar_max_panels():
+    return response.json()['solarPotential'].get('maxArrayPanelsCount')
 
 
 # def solar_finances():
