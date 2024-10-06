@@ -3,7 +3,7 @@ import json
 import os
 from dotenv import load_dotenv
 import pprint
-
+import numpy as np
 
 def solar_api_request(lat_long):
     load_dotenv()
@@ -55,3 +55,30 @@ def solar_max_panels():
 
 def solar_finances():
     return response.json()['solarPotential']['financialAnalyses']
+
+
+def lifetime_savings_best_fit():
+    lifetime_list = []
+    num_panels = []
+    finance_plans = response.json()['solarPotential']['financialAnalyses']
+    # return finance_plans[11]['leasingSavings']['savings']['savingsLifetime'].get('units')
+
+    # return(finance_plans[1].get('panelConfigIndex'))
+    for i in range(len(finance_plans) - 1):
+        try:
+            panel_count = finance_plans[i].get('panelConfigIndex')
+            if panel_count > 0:
+                num_panels.append(panel_count)
+                lifetime_list.append(finance_plans[i]['leasingSavings']['savings']['savingsLifetime'].get('units'))
+        except: pass
+
+    # change the arrays to work with numpy
+    num_panels = np.array(num_panels)
+    lifetime_list = np.array(lifetime_list)
+
+    slope, y_int = np.polyfit(num_panels, lifetime_list, 1)  # 1 for a linear fit
+
+    return slope, y_int
+
+def solar_savings(desired_num_panels, slope, y_int):
+     return slope * desired_num_panels + y_int
