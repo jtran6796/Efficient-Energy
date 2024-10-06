@@ -38,8 +38,8 @@ try:
         # panels count slider somewhere
         st.write("The potential amount of energy gained yearly from Solar:☀️", yearly_energy, "kW")
         st.write()
-        st.write("Your Yearly Bill without Solar: $", monthly_bill * 12)
-        st.write("Your Yearly Savings with Solar:💸 $", solar.solar_savings(num_solar_panels, m, b))
+        st.write("Your Lifetime Bill without Solar: $", monthly_bill * 12 * 20)
+        st.write("Your Lifetime Savings with Bill:💸 $", solar.solar_savings(num_solar_panels, m, b))
         # st.write(solar.solar_max_panels())
         # st.write(solar.solar_finances())
 except:
